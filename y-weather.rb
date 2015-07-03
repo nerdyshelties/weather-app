@@ -20,5 +20,11 @@ zip = gets.chomp
 client = Weatherman::Client.new
 response = client.lookup_by_location(zip).condition
 
-puts "It's #{response['text']} and #{response['temp']*9/5+32} degrees fahrenheit"
+puts "It's #{response['text'].downcase} and #{response['temp']*9/5+32} degrees fahrenheit"
+
+weather = client.lookup_by_location(zip).forecasts
+
+weather.each do |fcast|
+	puts "#{fcast['day']} - #{fcast['text'].downcase} - high #{fcast['high'].to_i * 9 / 5 + 32} / low #{fcast['low'].to_i * 9 / 5 + 32}"
+end
 
