@@ -14,17 +14,36 @@
 #Not sure how to do all that? No worries! We’ll walk you through it ;) Just click that big “Next” button up top!
 
 require 'yahoo_weatherman'
-puts "Enter location, city or zipcode:"
-zip = gets.chomp
+#we can accept either a city or a zipcode
+#puts "Enter location, city or zipcode:"
+#zip = gets.chomp
+zip = '02169'
 
 client = Weatherman::Client.new
+#this will get the current condition using the variable the user input
 response = client.lookup_by_location(zip).condition
 
+#prints the current conditions
 puts "It's #{response['text'].downcase} and #{response['temp']*9/5+32} degrees fahrenheit"
 
+#sets current day and day of week tomorrow
+d = Time.now
+today = d.strftime('%a')
+tomorrow = (d+86400).strftime('%a')
+
+#gets the next five days weather for the users location input in variable above
 weather = client.lookup_by_location(zip).forecasts
 
 weather.each do |fcast|
-	puts "#{fcast['day']} - #{fcast['text'].downcase} - high #{fcast['high'].to_i * 9 / 5 + 32} / low #{fcast['low'].to_i * 9 / 5 + 32}"
+	if fcast['day'] == today
+		dy = "Today"
+	else if
+		fcast['day'] == tomorrow
+		dy = "Tomorrow"
+	else
+		dy = fcast['day']
+	end
+end	
+	puts "#{dy} - #{fcast['text'].downcase} - high #{fcast['high'].to_i * 9 / 5 + 32} / low #{fcast['low'].to_i * 9 / 5 + 32}"
 end
 
