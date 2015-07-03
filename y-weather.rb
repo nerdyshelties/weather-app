@@ -18,12 +18,12 @@ require 'yahoo_weatherman'
 puts "Enter location, city or zipcode:"
 zip = gets.chomp
 
-client = Weatherman::Client.new
+client = Weatherman::Client.new(unit: 'f')
 #this will get the current condition using the variable the user input
 response = client.lookup_by_location(zip).condition
 
 #prints the current conditions
-puts "It's #{response['text'].downcase} and #{response['temp']*9/5+32} degrees fahrenheit"
+puts "It's #{response['text'].downcase} and #{response['temp']}!"
 
 #sets current day and day of week tomorrow
 d = Time.now
@@ -43,6 +43,6 @@ weather.each do |fcast|
 		dy = fcast['day']
 	end
 end	
-	puts "#{dy} - #{fcast['text'].downcase} - high #{fcast['high'].to_i * 9 / 5 + 32} / low #{fcast['low'].to_i * 9 / 5 + 32}"
+	puts "#{dy} - #{fcast['text'].downcase} - high #{fcast['high'].to_i} / low #{fcast['low'].to_i}"
 end
 
