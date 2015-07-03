@@ -15,9 +15,8 @@
 
 require 'yahoo_weatherman'
 #we can accept either a city or a zipcode
-#puts "Enter location, city or zipcode:"
-#zip = gets.chomp
-zip = '02169'
+puts "Enter location, city or zipcode:"
+zip = gets.chomp
 
 client = Weatherman::Client.new
 #this will get the current condition using the variable the user input
